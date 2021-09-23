@@ -7,6 +7,8 @@ public enum Vote {
 
     UPVOTE(), DOWNVOTE();
 
+    User voter;
+
 
     Vote(){}
 
@@ -14,5 +16,11 @@ public enum Vote {
         this.voter = voter;
     }
 
-    User voter;
+    public User getVoter() {
+        return voter;
+    }
+
+    public void setVoter(User voter) {
+        this.voter = voter;
+    }
 }

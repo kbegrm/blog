@@ -23,4 +23,82 @@ public class Post {
     private Set<Comment> comments;
     @OneToMany
     private Set<Vote> votes;
+
+
+
+    public Post() {
+    }
+
+    public Post(String title, String text, User author, Topic topic) {
+        this.title = title;
+        this.text = text;
+        this.author = author;
+        this.topic = topic;
+        this.postDate = new Date();
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
 }
