@@ -10,6 +10,7 @@ public class Topic {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String title;
     @Lob
     private String description;
