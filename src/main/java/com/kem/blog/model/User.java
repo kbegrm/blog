@@ -28,7 +28,9 @@ public class User {
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
     @OneToMany(mappedBy = "voter")
-    private Set<Vote> votes;
+    private Set<PostVote> postVotes;
+    @OneToMany(mappedBy = "voter")
+    private Set<CommentVote> commentVotes;
     @ManyToMany
     private Set<User> followed;
     @ManyToMany(mappedBy = "followed")
@@ -46,6 +48,7 @@ public class User {
         this.enabled = false;
         this.registerDate = new Date();
     }
+
 
     public UUID getId() {
         return id;
@@ -127,14 +130,6 @@ public class User {
         this.comments = comments;
     }
 
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }
-
     public Set<User> getFollowed() {
         return followed;
     }
@@ -149,5 +144,21 @@ public class User {
 
     public void setFollowers(Set<User> followers) {
         this.followers = followers;
+    }
+
+    public Set<PostVote> getPostVotes() {
+        return postVotes;
+    }
+
+    public void setPostVotes(Set<PostVote> postVotes) {
+        this.postVotes = postVotes;
+    }
+
+    public Set<CommentVote> getCommentVotes() {
+        return commentVotes;
+    }
+
+    public void setCommentVotes(Set<CommentVote> commentVotes) {
+        this.commentVotes = commentVotes;
     }
 }

@@ -21,8 +21,8 @@ public class Post {
     private Topic topic;
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
-    @OneToMany
-    private Set<Vote> votes;
+    @OneToMany(mappedBy = "post")
+    private Set<PostVote> votes;
 
 
 
@@ -94,11 +94,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public Set<Vote> getVotes() {
+    public Set<PostVote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(Set<PostVote> votes) {
         this.votes = votes;
     }
 }
