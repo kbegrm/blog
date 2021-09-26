@@ -1,26 +1,28 @@
-package com.kem.blog.model;
+package com.kem.blog.model.Vote;
+
+import com.kem.blog.model.Comment;
+import com.kem.blog.model.User;
 
 import javax.persistence.*;
 
 @Entity
-public class PostVote {
+@IdClass(CommentVoteId.class)
+public class CommentVote {
 
     @Id
-    @ManyToOne
     private User voter;
     @Id
-    @ManyToOne
-    private Post post;
+    private Comment comment;
     @Enumerated(EnumType.STRING)
-    private VoteType vote;
+    VoteType vote;
 
 
-    PostVote() {
+    CommentVote() {
     }
 
-    PostVote(User voter, Post post, VoteType vote) {
+    CommentVote(User voter, Comment comment, VoteType vote) {
         this.voter = voter;
-        this.post = post;
+        this.comment = comment;
         this.vote = vote;
     }
 
@@ -33,12 +35,12 @@ public class PostVote {
         this.voter = voter;
     }
 
-    public Post getPost() {
-        return post;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public VoteType getVote() {

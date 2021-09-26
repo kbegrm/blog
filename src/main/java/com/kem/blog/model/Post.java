@@ -1,5 +1,7 @@
 package com.kem.blog.model;
 
+import com.kem.blog.model.Vote.PostVote;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;

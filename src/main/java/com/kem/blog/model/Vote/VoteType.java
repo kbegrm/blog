@@ -1,4 +1,4 @@
-package com.kem.blog.model;
+package com.kem.blog.model.Vote;
 
 public enum VoteType {
     UPVOTE, DOWNVOTE

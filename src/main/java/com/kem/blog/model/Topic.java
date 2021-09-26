@@ -27,11 +27,10 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String title, String description, User creator, Set<Post> posts) {
+    public Topic(String title, String description, User creator) {
         this.title = title;
         this.description = description;
         this.creator = creator;
-        this.posts = posts;
         this.creationDate = new Date();
     }
 
