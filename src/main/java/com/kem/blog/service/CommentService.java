@@ -1,6 +1,8 @@
 package com.kem.blog.service;
 
-import com.kem.blog.dto.CommentDto;
+import com.kem.blog.dto.Mapper;
+import com.kem.blog.dto.comment.CommentUpdateDto;
+import com.kem.blog.dto.comment.NewCommentDto;
 import com.kem.blog.model.Comment;
 import com.kem.blog.repository.CommentRepo;
 import com.kem.blog.repository.PostRepo;
@@ -24,22 +26,16 @@ public class CommentService {
     }
 
 
-    void create(CommentDto dto) {
-        Long replyToId = dto.getReplyToId();
-        Comment comment = new Comment(
-                dto.getText(),
-                userRepo.getById(dto.getAuthorId()),
-                postRepo.getById(dto.getPostId()),
-                replyToId == null ? null : commentRepo.getById(replyToId)
-        );
+    void create(NewCommentDto dto) {
+        Comment comment = Mapper.dtoToComment(dto);
         commentRepo.save(comment);
     }
 
-    void update(CommentDto dto) {
+    void update(CommentUpdateDto dto) {
         commentRepo.getById(dto.getCommentId()).setText(dto.getText());
     }
 
-    void delete(CommentDto dto) {
-        commentRepo.deleteById(dto.getCommentId());
+    void delete(CommentUpdateDto dto) {
+        commentRepo.getById(dto.getCommentId()).setText("[deleted]");
     }
 }

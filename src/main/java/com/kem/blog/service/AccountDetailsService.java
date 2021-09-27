@@ -1,6 +1,8 @@
 package com.kem.blog.service;
 
-import com.kem.blog.dto.AccountDto;
+import com.kem.blog.dto.Mapper;
+import com.kem.blog.dto.user.AccountCredentialsDto;
+import com.kem.blog.dto.user.AccountCredentialsUpdateDto;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.UserRepo;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,8 @@ public class AccountDetailsService {
 
 
 
-    void register(AccountDto dto) {
-        User newUser = new User(
-                dto.getUsername(),
-                dto.getPassword(),
-                dto.getEmail()
-        );
+    void register(AccountCredentialsDto dto) {
+        User newUser = Mapper.AccCredToUser(dto);
         newUser.setEnabled(true);       // TODO активация после подтверждения почты; проверка надежности пороля
         userRepo.save(newUser);
     }
@@ -33,33 +31,29 @@ public class AccountDetailsService {
 //
 //    }
 
-    void changeUsername(AccountDto dto) {
-        User user = userRepo.getById(dto.getId());
-        user.setUsername(dto.getUsername());
+    void changeUsername(AccountCredentialsUpdateDto dto) {
+        User user = userRepo.getById(dto.getUserid());
+        user.setUsername(dto.getUpdate());
     }
 
-    void changePassword(AccountDto dto) {
-        User user = userRepo.getById(dto.getId());
-        String newPassword = dto.getPassword();
+    void changePassword(AccountCredentialsUpdateDto dto) {
+        User user = userRepo.getById(dto.getUserid());
+        String newPassword = dto.getUpdate();
         // TODO проверка пороля на соответствие условиям безопасности
         user.setPassword(newPassword);
     }
 
-    void changeEmail(AccountDto dto) {
-        User user = userRepo.getById(dto.getId());
+    void changeEmail(AccountCredentialsUpdateDto dto) {
+        User user = userRepo.getById(dto.getUserid());
         // TODO подтверждение почты
-        user.setEmail(dto.getEmail());
+        user.setEmail(dto.getUpdate());
     }
 
-    void delete(AccountDto dto) {
-        userRepo.deleteById(dto.getId());
-    }
-
-    void enable(AccountDto dto) {
+    void enable(AccountCredentialsDto dto) {
         userRepo.getById(dto.getId()).setEnabled(true);
     }
 
-    void disable(AccountDto dto) {
+    void disable(AccountCredentialsDto dto) {
         userRepo.getById(dto.getId()).setEnabled(false);
     }
 }

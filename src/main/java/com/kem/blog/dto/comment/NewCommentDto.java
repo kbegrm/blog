@@ -1,18 +1,16 @@
-package com.kem.blog.dto;
+package com.kem.blog.dto.comment;
 
 import java.util.UUID;
 
-public class CommentDto {
+public class NewCommentDto {
 
     private final UUID authorId;
-    private final Long commentId;
     private final Long replyToId;
     private final Long PostId;
     private final String text;
 
-    public CommentDto(UUID authorId, Long commentId, Long replyToId, Long postId, String text) {
+    public NewCommentDto(UUID authorId, Long commentId, Long replyToId, Long postId, String text) {
         this.authorId = authorId;
-        this.commentId = commentId;
         this.replyToId = replyToId;
         PostId = postId;
         this.text = text;
@@ -20,10 +18,6 @@ public class CommentDto {
 
     public UUID getAuthorId() {
         return authorId;
-    }
-
-    public Long getCommentId() {
-        return commentId;
     }
 
     public Long getReplyToId() {
