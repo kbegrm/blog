@@ -8,6 +8,7 @@ import com.kem.blog.model.Topic;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.TopicRepo;
 import com.kem.blog.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,7 @@ public class AccountActionsService {
     private TopicRepo topicRepo;
 
 
+    @Autowired
     public AccountActionsService(UserRepo userRepo, TopicRepo topicRepo) {
         this.userRepo = userRepo;
         this.topicRepo = topicRepo;
@@ -28,32 +30,32 @@ public class AccountActionsService {
 
 
 
-    AccountDto getAccountInfo(UUID userId) {
+    public AccountDto getAccountInfo(UUID userId) {
         User user = userRepo.getById(userId);
         return Mapper.userToAccountDto(user);
     }
 
-    void subscribe(SubDto dto){
+    public void subscribe(SubDto dto){
         User user = userRepo.getById(dto.getUserId());
         Topic topic = topicRepo.getById(dto.getTopicId());
         user.getSubscriptions().add(topic);
     }
 
-    void unsubscribe(SubDto dto){
+    public void unsubscribe(SubDto dto){
         User user = userRepo.getById(dto.getUserId());
         Topic topic = topicRepo.getById(dto.getTopicId());
         user.getSubscriptions().remove(topic);
     }
 
-    void follow(FollowDto dto){
+    public void follow(FollowDto dto){
         User user = userRepo.getById(dto.getUserId());
-        User toBeFollowed = userRepo.getById(dto.getOtherUserId());
+        User toBeFollowed = userRepo.getById(dto.getFollowedUserId());
         user.getFollowed().add(toBeFollowed);
     }
 
-    void unfollow(FollowDto dto){
+    public void unfollow(FollowDto dto){
         User user = userRepo.getById(dto.getUserId());
-        User toBeUnfollowed = userRepo.getById(dto.getOtherUserId());
+        User toBeUnfollowed = userRepo.getById(dto.getFollowedUserId());
         user.getFollowed().remove(toBeUnfollowed);
     }
 }

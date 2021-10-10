@@ -17,10 +17,10 @@ public class CommentVote {
     VoteType vote;
 
 
-    CommentVote() {
+    public CommentVote() {
     }
 
-    CommentVote(User voter, Comment comment, VoteType vote) {
+    public CommentVote(User voter, Comment comment, VoteType vote) {
         this.voter = voter;
         this.comment = comment;
         this.vote = vote;

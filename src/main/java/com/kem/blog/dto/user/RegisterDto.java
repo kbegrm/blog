@@ -1,23 +1,15 @@
 package com.kem.blog.dto.user;
 
-import java.util.UUID;
+public class RegisterDto {
 
-public class AccountCredentialsDto {
-
-    private final UUID id;
     private final String username;
     private final String password;
     private final String email;
 
-    public AccountCredentialsDto(UUID id, String username, String password, String email) {
-        this.id = id;
+    public RegisterDto(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getUsername() {

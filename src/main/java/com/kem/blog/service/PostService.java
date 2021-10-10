@@ -8,6 +8,7 @@ import com.kem.blog.model.Post;
 import com.kem.blog.repository.PostRepo;
 import com.kem.blog.repository.TopicRepo;
 import com.kem.blog.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PostService {
 
@@ -15,6 +16,7 @@ public class PostService {
     private UserRepo userRepo;
     private TopicRepo topicRepo;
 
+    @Autowired
     public PostService(PostRepo postRepo, UserRepo userRepo, TopicRepo topicRepo) {
         this.postRepo = postRepo;
         this.userRepo = userRepo;
@@ -23,27 +25,29 @@ public class PostService {
 
 
 
-    void create(NewPostDto dto) {
+    public void create(NewPostDto dto) {
         Post post = Mapper.dtoToPost(dto);
         postRepo.save(post);
     }
 
-    PostDto get(Long id) {
+    public PostDto get(Long id) {
         Post post = postRepo.getById(id);
         return Mapper.postToDto(post);
     }
 
-    void updateTitle(PostUpdateDto dto) {
+    public void updateTitle(PostUpdateDto dto) {
         Post post = postRepo.getById(dto.getPostId());
         post.setTitle(dto.getUpdate());
     }
 
-    void updateText(PostUpdateDto dto) {
+    public void updateText(PostUpdateDto dto) {
         Post post = postRepo.getById(dto.getPostId());
         post.setText(dto.getUpdate());
     }
 
-    void deletePost(Long id) {
-        postRepo.deleteById(id);
-    }       // TODO cascade
+    public void deletePost(Long id) {
+        Post post = postRepo.getById(id);
+        post.setTitle("[deleted]");
+        post.setText("[deleted]");
+    }
 }

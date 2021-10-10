@@ -7,6 +7,7 @@ import com.kem.blog.model.Comment;
 import com.kem.blog.repository.CommentRepo;
 import com.kem.blog.repository.PostRepo;
 import com.kem.blog.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,6 +20,7 @@ public class CommentService {
     private UserRepo userRepo;
     private PostRepo postRepo;
 
+    @Autowired
     public CommentService(CommentRepo commentRepo, UserRepo userRepo, PostRepo postRepo) {
         this.commentRepo = commentRepo;
         this.userRepo = userRepo;
@@ -26,16 +28,16 @@ public class CommentService {
     }
 
 
-    void create(NewCommentDto dto) {
+    public void create(NewCommentDto dto) {
         Comment comment = Mapper.dtoToComment(dto);
         commentRepo.save(comment);
     }
 
-    void update(CommentUpdateDto dto) {
+    public void update(CommentUpdateDto dto) {
         commentRepo.getById(dto.getCommentId()).setText(dto.getText());
     }
 
-    void delete(CommentUpdateDto dto) {
-        commentRepo.getById(dto.getCommentId()).setText("[deleted]");
+    public void delete(Long id) {
+        commentRepo.getById(id).setText("[deleted]");
     }
 }

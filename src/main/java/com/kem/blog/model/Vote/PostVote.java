@@ -19,10 +19,10 @@ public class PostVote {
     private VoteType vote;
 
 
-    PostVote() {
+    public PostVote() {
     }
 
-    PostVote(User voter, Post post, VoteType vote) {
+    public PostVote(User voter, Post post, VoteType vote) {
         this.voter = voter;
         this.post = post;
         this.vote = vote;

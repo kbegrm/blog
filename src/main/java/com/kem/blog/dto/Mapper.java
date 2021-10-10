@@ -8,7 +8,7 @@ import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.dto.topic.NewTopicDto;
 import com.kem.blog.dto.topic.TopicDto;
 import com.kem.blog.dto.topic.TopicPreviewDto;
-import com.kem.blog.dto.user.AccountCredentialsDto;
+import com.kem.blog.dto.user.RegisterDto;
 import com.kem.blog.dto.user.AccountDto;
 import com.kem.blog.dto.user.UserDto;
 import com.kem.blog.dto.user.UserPreviewDto;
@@ -62,7 +62,7 @@ public class Mapper {
         );
     }
 
-    public static User AccCredToUser(AccountCredentialsDto dto) {
+    public static User AccCredToUser(RegisterDto dto) {
         return new User(
                 dto.getUsername(),
                 dto.getPassword(),

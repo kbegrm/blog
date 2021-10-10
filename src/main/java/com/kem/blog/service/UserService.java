@@ -5,6 +5,7 @@ import com.kem.blog.dto.user.UserDto;
 import com.kem.blog.dto.user.UserPreviewDto;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,18 +19,19 @@ public class UserService {
 
     UserRepo userRepo;
 
+    @Autowired
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
 
 
-    UserDto getById(UUID id) {
+    public UserDto getById(UUID id) {
         User user = userRepo.getById(id);
         return Mapper.userToDto(user);
     }
 
-    Collection<UserPreviewDto> getByUsername(String username) {
+    public Collection<UserPreviewDto> getByUsername(String username) {
         return userRepo.findByUsername(username)
                 .stream().map(Mapper::userToPreviewDto)
                 .collect(Collectors.toSet());

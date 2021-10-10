@@ -5,18 +5,18 @@ import java.util.UUID;
 public class FollowDto {
 
     private final UUID userId;
-    private final UUID otherUserId;   // на кого оформляется / отменяется подписка
+    private final UUID followedUserId;
 
     public FollowDto(UUID user, UUID otherUser) {
         this.userId = user;
-        this.otherUserId = otherUser;
+        this.followedUserId = otherUser;
     }
 
     public UUID getUserId() {
         return userId;
     }
 
-    public UUID getOtherUserId() {
-        return otherUserId;
+    public UUID getFollowedUserId() {
+        return followedUserId;
     }
 }
