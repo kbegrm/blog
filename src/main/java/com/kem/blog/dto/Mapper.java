@@ -40,8 +40,8 @@ public class Mapper {
                 user.getId(),
                 user.getUsername(),
                 user.getRegisterDate(),
-                topicsToPreviewDtos(user.getCreatedTopics()),
-                postsToPreviewDtos(user.getPosts())
+                topicsToPreviewDto(user.getCreatedTopics()),
+                postsToPreviewDto(user.getPosts())
         );
     }
 
@@ -56,9 +56,9 @@ public class Mapper {
                 user.getEmail(),
                 user.getRegisterDate(),
                 user.getEnabled(),
-                topicsToPreviewDtos(user.getCreatedTopics()),
-                topicsToPreviewDtos(user.getSubscriptions()),
-                postsToPreviewDtos(user.getPosts())
+                topicsToPreviewDto(user.getCreatedTopics()),
+                topicsToPreviewDto(user.getSubscriptions()),
+                postsToPreviewDto(user.getPosts())
         );
     }
 
@@ -80,7 +80,7 @@ public class Mapper {
                 topic.getId(),
                 topic.getTitle(),
                 topic.getDescription(),
-                postsToPreviewDtos(topic.getPosts())
+                postsToPreviewDto(topic.getPosts())
         );
     }
 
@@ -88,7 +88,7 @@ public class Mapper {
         return new TopicPreviewDto(topic.getId(), topic.getTitle());
     }
 
-    public static Set<TopicPreviewDto> topicsToPreviewDtos(Collection<Topic> topics) {
+    public static Set<TopicPreviewDto> topicsToPreviewDto(Collection<Topic> topics) {
         return topics.stream().map(Mapper::topicToPreviewDto).collect(Collectors.toSet());
     }
 
@@ -107,7 +107,7 @@ public class Mapper {
         return new PostPreviewDto(post.getId(), post.getTitle());
     }
 
-    public static Set<PostPreviewDto> postsToPreviewDtos(Collection<Post> posts) {
+    public static Set<PostPreviewDto> postsToPreviewDto(Collection<Post> posts) {
         return posts.stream().map(Mapper::postToPreviewDto).collect(Collectors.toSet());
     }
 
@@ -119,7 +119,7 @@ public class Mapper {
                 post.getPostDate(),
                 userToPreviewDto(post.getAuthor()),
                 topicToPreviewDto(post.getTopic()),
-                commentsToDtos(post.getComments()),
+                commentsToDto(post.getComments()),
                 post.getVotes().stream().filter(p -> p.getVote() == VoteType.UPVOTE).count(),
                 post.getVotes().stream().filter(p -> p.getVote() == VoteType.DOWNVOTE).count()
                 );
@@ -142,14 +142,14 @@ public class Mapper {
                 comment.getId(),
                 comment.getText(),
                 comment.getPostDate(),
-                commentsToDtos(comment.getReplies()),
+                comment.getReplyTo().getId(),
                 userToPreviewDto(comment.getAuthor()),
                 comment.getVotes().stream().filter(v -> v.getVote() == VoteType.UPVOTE).count(),
                 comment.getVotes().stream().filter(v -> v.getVote() == VoteType.DOWNVOTE).count()
         );
     }
 
-    public static Set<CommentDto> commentsToDtos(Collection<Comment> comments) {
+    public static Set<CommentDto> commentsToDto(Collection<Comment> comments) {
         return comments.stream().map(Mapper::commentToDto).collect(Collectors.toSet());
     }
 

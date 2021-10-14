@@ -1,10 +1,13 @@
 package com.kem.blog.dto.user;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class SubDto {
 
+    @NotNull
     private final UUID userId;
+    @NotNull
     private final Long topicId;
 
     public SubDto(UUID userId, Long topicId) {

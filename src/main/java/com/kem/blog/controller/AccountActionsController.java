@@ -5,13 +5,16 @@ import com.kem.blog.dto.user.FollowDto;
 import com.kem.blog.dto.user.SubDto;
 import com.kem.blog.service.AccountActionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController("/account-actions")
+@Validated
 public class AccountActionsController {
 
     private AccountActionsService actionsService;
@@ -29,22 +32,22 @@ public class AccountActionsController {
     }
 
     @PostMapping("/subscribe")
-    public void subscribe(SubDto dto) {
+    public void subscribe(@Valid SubDto dto) {
         actionsService.subscribe(dto);
     }
 
     @PostMapping("/unsubscribe")
-    public void unsubscribe(SubDto dto) {
+    public void unsubscribe(@Valid SubDto dto) {
         actionsService.unsubscribe(dto);
     }
 
     @PostMapping("follow")
-    public void follow(FollowDto dto) {
+    public void follow(@Valid FollowDto dto) {
         actionsService.follow(dto);
     }
 
     @PostMapping("/unfollow")
-    public void unfollow(FollowDto dto) {
+    public void unfollow(@Valid FollowDto dto) {
         actionsService.unfollow(dto);
     }
 }

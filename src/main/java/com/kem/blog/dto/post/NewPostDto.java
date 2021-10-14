@@ -1,12 +1,18 @@
 package com.kem.blog.dto.post;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class NewPostDto {
 
+    @NotNull
     private final UUID authorId;
+    @NotNull
     private final Long topicId;
+    @NotBlank
     private final String title;
+    @NotBlank
     private final String text;
 
     public NewPostDto(UUID authorId, Long topicId, String title, String text) {

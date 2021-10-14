@@ -2,13 +2,17 @@ package com.kem.blog.dto;
 
 import com.kem.blog.model.Vote.VoteType;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class VoteDto {
 
+    @NotNull
     private final UUID voterId;
+    @NotNull
     private final Long targetId;
-    private final VoteType type;
+    @NotNull
+    private final VoteType type;        //TODO string?
 
     public VoteDto(UUID userId, Long targetId, VoteType type) {
         this.voterId = userId;

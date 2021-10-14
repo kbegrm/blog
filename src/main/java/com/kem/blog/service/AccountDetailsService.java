@@ -2,7 +2,7 @@ package com.kem.blog.service;
 
 import com.kem.blog.dto.Mapper;
 import com.kem.blog.dto.user.RegisterDto;
-import com.kem.blog.dto.user.AccountCredentialsUpdateDto;
+import com.kem.blog.dto.user.CredentialsUpdateDto;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,19 @@ public class AccountDetailsService {
 //
 //    }
 
-    public void changeUsername(AccountCredentialsUpdateDto dto) {
+    public void changeUsername(CredentialsUpdateDto dto) {
         User user = userRepo.getById(dto.getUserid());
         user.setUsername(dto.getUpdate());
     }
 
-    public void changePassword(AccountCredentialsUpdateDto dto) {
+    public void changePassword(CredentialsUpdateDto dto) {
         User user = userRepo.getById(dto.getUserid());
         String newPassword = dto.getUpdate();
         // TODO проверка пороля на соответствие условиям безопасности
         user.setPassword(newPassword);
     }
 
-    public void changeEmail(AccountCredentialsUpdateDto dto) {
+    public void changeEmail(CredentialsUpdateDto dto) {
         User user = userRepo.getById(dto.getUserid());
         // TODO подтверждение почты
         user.setEmail(dto.getUpdate());

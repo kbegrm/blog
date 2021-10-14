@@ -5,12 +5,16 @@ import com.kem.blog.dto.topic.TopicDto;
 import com.kem.blog.dto.topic.TopicUpdateDto;
 import com.kem.blog.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController("/topic")
+@Validated
 public class TopicController {
 
     private TopicService topicService;
@@ -23,7 +27,7 @@ public class TopicController {
 
 
     @PostMapping
-    public void create(NewTopicDto dto) {
+    public void create(@Valid NewTopicDto dto) {
         topicService.create(dto);
     }
 
@@ -33,7 +37,7 @@ public class TopicController {
     }
 
     @PutMapping
-    public void updateDescription(TopicUpdateDto dto) {
+    public void updateDescription(@Valid TopicUpdateDto dto) {
         topicService.updateDescription(dto);
     }
 }
