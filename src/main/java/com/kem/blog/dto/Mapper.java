@@ -84,6 +84,16 @@ public class Mapper {
         );
     }
 
+    public static TopicDto topicToDtoLimitPosts(Topic topic) {
+        return new TopicDto(
+                userToPreviewDto(topic.getCreator()),
+                topic.getId(),
+                topic.getTitle(),
+                topic.getDescription(),
+                postsToPreviewDto(postRepo.findFirst10ByTopicOrderByDateDesc(topic))
+        );
+    }
+
     public static TopicPreviewDto topicToPreviewDto(Topic topic) {
         return new TopicPreviewDto(topic.getId(), topic.getTitle());
     }

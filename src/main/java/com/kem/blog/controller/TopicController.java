@@ -6,10 +6,7 @@ import com.kem.blog.dto.topic.TopicUpdateDto;
 import com.kem.blog.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,6 +26,11 @@ public class TopicController {
     @PostMapping
     public void create(@Valid NewTopicDto dto) {
         topicService.create(dto);
+    }
+
+    @GetMapping("/full")
+    public TopicDto getFull(Long topicId) {
+        return topicService.getFull(topicId);
     }
 
     @GetMapping

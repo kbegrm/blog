@@ -41,7 +41,7 @@ public class PostController {
         postService.updateTitle(dto);
     }
 
-    @PostMapping("/test")
+    @PostMapping("/text")
     public void updateText(@Valid PostUpdateDto dto) {
         postService.updateText(dto);
     }

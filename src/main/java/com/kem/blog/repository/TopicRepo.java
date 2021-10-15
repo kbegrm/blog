@@ -9,6 +9,4 @@ import java.util.Set;
 
 @Repository
 public interface TopicRepo  extends JpaRepository<Topic, Long> {
-
-    Set<Topic> getByCreator(User creator);
 }

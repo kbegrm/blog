@@ -18,6 +18,7 @@ public class TopicService {
 
     private TopicRepo topicRepo;
     private UserRepo userRepo;
+//    private final int NUMBER_OF_POSTS = 10;
 
     @Autowired
     public TopicService(TopicRepo topicRepo, UserRepo userRepo) {
@@ -32,7 +33,21 @@ public class TopicService {
         topicRepo.save(topic);
     }
 
-    public TopicDto get(Long id) {
+//    public TopicDto get(Long id) {
+//        return get(id, NUMBER_OF_POSTS);
+//    }
+
+//    public TopicDto get(Long id, int numberOfPostsToFetch) {
+//        Topic topic = topicRepo.getById(id);
+//        ...
+//    }
+
+    public  TopicDto get(Long id) {
+        Topic topic = topicRepo.getById(id);
+        return Mapper.topicToDtoLimitPosts(topic);
+    }
+
+    public TopicDto getFull(Long id) {
         Topic topic = topicRepo.getById(id);
         return Mapper.topicToDto(topic);
     }
