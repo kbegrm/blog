@@ -35,6 +35,7 @@ public class AccountDetailsController {
     @GetMapping("/signin")
     public String signIn(@Valid CredentialsDto dto) {
     // TODO return token
+        return "";
     }
 
     @PutMapping("/username")
