@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-//@EnableJpaRepositories
-//@EnableTransactionManagement
+@EnableJpaRepositories
+@EnableTransactionManagement
 public class BlogApplication {
 
 	public static void main(String[] args) {
