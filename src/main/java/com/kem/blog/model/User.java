@@ -21,6 +21,8 @@ public class User {
     private String email;
     private Date registerDate;
     private Boolean enabled;
+    private Set<Role> roles;
+    private Set<Authorities> authorities;
 
     @ManyToMany
     private Set<Topic> subscriptions;
@@ -163,5 +165,21 @@ public class User {
 
     public void setCommentVotes(Set<CommentVote> commentVotes) {
         this.commentVotes = commentVotes;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Authorities> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authorities> authorities) {
+        this.authorities = authorities;
     }
 }

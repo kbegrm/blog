@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@Controller("/account-details")
+@Controller
+@RequestMapping("/account-details")
 @Validated
 public class AccountDetailsController {
 
@@ -26,7 +28,6 @@ public class AccountDetailsController {
     }
 
 
-
     @GetMapping("/register")
     public void register(@Valid RegisterDto dto) {
         detailsService.register(dto);
@@ -34,7 +35,7 @@ public class AccountDetailsController {
 
     @GetMapping("/signin")
     public String signIn(@Valid CredentialsDto dto) {
-    // TODO return token
+        // TODO return token
         return "";
     }
 

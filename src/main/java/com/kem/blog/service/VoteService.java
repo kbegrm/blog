@@ -4,8 +4,7 @@ import com.kem.blog.dto.VoteDto;
 import com.kem.blog.model.Comment;
 import com.kem.blog.model.Post;
 import com.kem.blog.model.User;
-import com.kem.blog.model.Vote.CommentVote;
-import com.kem.blog.model.Vote.PostVote;
+import com.kem.blog.model.Vote.*;
 import com.kem.blog.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,15 +35,21 @@ public class VoteService {
 
 
     public void voteComment(VoteDto dto) {
+        VoteType type = dto.getType();
         User voter = userRepo.getById(dto.getVoterId());
         Comment comment = commentRepo.getById(dto.getTargetId());
+        if (type.equals(VoteType.NONE))
+            commentVoteRepo.deleteById(new CommentVoteId(voter, comment));
         CommentVote vote = new CommentVote(voter, comment, dto.getType());
         commentVoteRepo.save(vote);
     }
 
     public void votePost(VoteDto dto) {
+        VoteType type = dto.getType();
         User voter = userRepo.getById(dto.getVoterId());
         Post post = postRepo.getById(dto.getTargetId());
+        if (type.equals(VoteType.NONE))
+            postVoteRepo.deleteById(new PostVoteId(voter, post));
         PostVote vote = new PostVote(voter, post, dto.getType());
         postVoteRepo.save(vote);
     }

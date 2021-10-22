@@ -1,4 +1,4 @@
-package com.kem.blog.security;
+package com.kem.blog.model;
 
 public enum Role {
     USER, ADMIN

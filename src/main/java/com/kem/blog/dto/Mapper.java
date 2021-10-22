@@ -8,8 +8,8 @@ import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.dto.topic.NewTopicDto;
 import com.kem.blog.dto.topic.TopicDto;
 import com.kem.blog.dto.topic.TopicPreviewDto;
-import com.kem.blog.dto.user.RegisterDto;
 import com.kem.blog.dto.user.AccountDto;
+import com.kem.blog.dto.user.RegisterDto;
 import com.kem.blog.dto.user.UserDto;
 import com.kem.blog.dto.user.UserPreviewDto;
 import com.kem.blog.model.Comment;
@@ -21,20 +21,23 @@ import com.kem.blog.repository.CommentRepo;
 import com.kem.blog.repository.PostRepo;
 import com.kem.blog.repository.TopicRepo;
 import com.kem.blog.repository.UserRepo;
+import com.sun.xml.bind.v2.TODO;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Transactional
 public class Mapper {
 
+//    TODO wire
     private static UserRepo userRepo;
     private static TopicRepo topicRepo;
     private static PostRepo postRepo;
     private static CommentRepo commentRepo;
+
+
 
     // ---USER---
     public static UserDto userToDto(User user) {
@@ -91,7 +94,7 @@ public class Mapper {
                 topic.getId(),
                 topic.getTitle(),
                 topic.getDescription(),
-                postsToPreviewDto(postRepo.findFirst10ByTopicOrderByDateDesc(topic))
+                postsToPreviewDto(postRepo.findFirst10ByTopicOrderByPostDateDesc(topic))
         );
     }
 

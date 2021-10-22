@@ -9,7 +9,12 @@ import com.kem.blog.repository.PostRepo;
 import com.kem.blog.repository.TopicRepo;
 import com.kem.blog.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
 public class PostService {
 
     private PostRepo postRepo;

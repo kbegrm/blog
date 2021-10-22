@@ -10,8 +10,10 @@ import javax.persistence.*;
 public class CommentVote {
 
     @Id
+    @ManyToOne
     private User voter;
     @Id
+    @ManyToOne
     private Comment comment;
     @Enumerated(EnumType.STRING)
     VoteType vote;

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController("/topic")
+@RestController
+@RequestMapping("/topic")
 @Validated
 public class TopicController {
 

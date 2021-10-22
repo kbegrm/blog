@@ -6,14 +6,13 @@ import com.kem.blog.dto.post.PostUpdateDto;
 import com.kem.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-@RestController("/post")
+@RestController
+@RequestMapping("/post")
 @Validated
 public class PostController {
 
@@ -32,7 +31,7 @@ public class PostController {
     }
 
     @GetMapping
-    public PostDto get(Long postId) {
+    public PostDto get(@NotNull Long postId) {
         return postService.get(postId);
     }
 

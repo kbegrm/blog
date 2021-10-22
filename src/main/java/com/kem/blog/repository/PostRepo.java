@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public interface PostRepo extends JpaRepository<Post, Long> {
 
-    Set<Post> findFirst10ByTopicOrderByDateDesc(Topic topic);
+    Set<Post> findFirst10ByTopicOrderByPostDateDesc(Topic topic);
 
     // TODO
     // select * from post where topic = ... order by date desc limit n
