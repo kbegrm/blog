@@ -18,18 +18,21 @@ public class TopicService {
 
     private TopicRepo topicRepo;
     private UserRepo userRepo;
+    private Mapper mapper;
+
 //    private final int NUMBER_OF_POSTS = 10;
 
     @Autowired
-    public TopicService(TopicRepo topicRepo, UserRepo userRepo) {
+    public TopicService(TopicRepo topicRepo, UserRepo userRepo, Mapper mapper) {
         this.topicRepo = topicRepo;
         this.userRepo = userRepo;
+        this.mapper = mapper;
     }
 
 
 
     public void create(NewTopicDto dto) {
-        Topic topic = Mapper.dtoToTopic(dto);
+        Topic topic = mapper.dtoToTopic(dto);
         topicRepo.save(topic);
     }
 
@@ -45,12 +48,12 @@ public class TopicService {
 
     public  TopicDto get(Long id) {
         Topic topic = topicRepo.getById(id);
-        return Mapper.topicToDtoLimitPosts(topic);
+        return mapper.topicToDtoLimitPosts(topic);
     }
 
     public TopicDto getFull(Long id) {
         Topic topic = topicRepo.getById(id);
-        return Mapper.topicToDto(topic);
+        return mapper.topicToDto(topic);
     }
 
     public void updateDescription(TopicUpdateDto dto) {

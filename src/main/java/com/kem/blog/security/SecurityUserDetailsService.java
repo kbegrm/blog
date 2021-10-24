@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
+@Service
 public class SecurityUserDetailsService implements UserDetailsService {
 
     private UserRepo userRepo;
@@ -20,8 +20,9 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UUID userId = UUID.fromString(s);
-        User user = userRepo.getById(userId);
+        User user = userRepo.findByEmail(s)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "no registered users with email [" + s + "]"));
         return new SecurityUserDetails(user);
     }
 }

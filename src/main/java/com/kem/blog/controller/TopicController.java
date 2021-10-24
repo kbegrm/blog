@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/topic")
@@ -25,22 +26,22 @@ public class TopicController {
 
 
     @PostMapping
-    public void create(@Valid NewTopicDto dto) {
+    public void create(@Valid @RequestBody NewTopicDto dto) {
         topicService.create(dto);
     }
 
     @GetMapping("/full")
-    public TopicDto getFull(Long topicId) {
+    public TopicDto getFull(@NotNull @RequestBody Long topicId) {
         return topicService.getFull(topicId);
     }
 
     @GetMapping
-    public TopicDto get(Long topicId) {
+    public TopicDto get(@NotNull @RequestBody Long topicId) {
         return topicService.get(topicId);
     }
 
     @PutMapping
-    public void updateDescription(@Valid TopicUpdateDto dto) {
+    public void updateDescription(@Valid @RequestBody TopicUpdateDto dto) {
         topicService.updateDescription(dto);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/comment")
@@ -24,17 +25,17 @@ public class CommentController {
 
 
     @PostMapping
-    void create(@Valid NewCommentDto dto) {
+    void create(@Valid @RequestBody NewCommentDto dto) {
         commentService.create(dto);
     }
 
     @PutMapping
-    void updateText(@Valid CommentUpdateDto dto) {
+    void updateText(@Valid @RequestBody CommentUpdateDto dto) {
         commentService.update(dto);
     }
 
     @DeleteMapping
-    void delete(Long commentId) {
+    void delete(@NotNull @RequestBody Long commentId) {
         commentService.delete(commentId);
     }
 }

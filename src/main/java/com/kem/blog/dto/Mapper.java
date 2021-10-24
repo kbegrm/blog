@@ -21,26 +21,34 @@ import com.kem.blog.repository.CommentRepo;
 import com.kem.blog.repository.PostRepo;
 import com.kem.blog.repository.TopicRepo;
 import com.kem.blog.repository.UserRepo;
-import com.sun.xml.bind.v2.TODO;
+import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 @Transactional
 public class Mapper {
 
-//    TODO wire
-    private static UserRepo userRepo;
-    private static TopicRepo topicRepo;
-    private static PostRepo postRepo;
-    private static CommentRepo commentRepo;
+    private UserRepo userRepo;
+    private TopicRepo topicRepo;
+    private PostRepo postRepo;
+    private CommentRepo commentRepo;
+
+    public Mapper(UserRepo userRepo, TopicRepo topicRepo, PostRepo postRepo, CommentRepo commentRepo) {
+        this.userRepo = userRepo;
+        this.topicRepo = topicRepo;
+        this.postRepo = postRepo;
+        this.commentRepo = commentRepo;
+    }
 
 
 
     // ---USER---
-    public static UserDto userToDto(User user) {
+    public UserDto userToDto(User user) {
         return new UserDto(
                 user.getId(),
                 user.getUsername(),
@@ -50,11 +58,11 @@ public class Mapper {
         );
     }
 
-    public static UserPreviewDto userToPreviewDto(User user) {
+    public UserPreviewDto userToPreviewDto(User user) {
         return new UserPreviewDto(user.getId(), user.getUsername());
     }
 
-    public static AccountDto userToAccountDto(User user) {
+    public AccountDto userToAccountDto(User user) {
         return new AccountDto(
                 user.getId(),
                 user.getUsername(),
@@ -67,7 +75,7 @@ public class Mapper {
         );
     }
 
-    public static User AccCredToUser(RegisterDto dto) {
+    public User RegisterDtoToUser(RegisterDto dto) {
         return new User(
                 dto.getUsername(),
                 dto.getPassword(),
@@ -78,7 +86,7 @@ public class Mapper {
 
 
     // ---TOPIC---
-    public static TopicDto topicToDto(Topic topic) {
+    public TopicDto topicToDto(Topic topic) {
         return new TopicDto(
                 userToPreviewDto(topic.getCreator()),
                 topic.getId(),
@@ -88,7 +96,7 @@ public class Mapper {
         );
     }
 
-    public static TopicDto topicToDtoLimitPosts(Topic topic) {
+    public TopicDto topicToDtoLimitPosts(Topic topic) {
         return new TopicDto(
                 userToPreviewDto(topic.getCreator()),
                 topic.getId(),
@@ -98,15 +106,15 @@ public class Mapper {
         );
     }
 
-    public static TopicPreviewDto topicToPreviewDto(Topic topic) {
+    public TopicPreviewDto topicToPreviewDto(Topic topic) {
         return new TopicPreviewDto(topic.getId(), topic.getTitle());
     }
 
-    public static Set<TopicPreviewDto> topicsToPreviewDto(Collection<Topic> topics) {
-        return topics.stream().map(Mapper::topicToPreviewDto).collect(Collectors.toSet());
+    public Set<TopicPreviewDto> topicsToPreviewDto(Collection<Topic> topics) {
+        return topics.stream().map(this::topicToPreviewDto).collect(Collectors.toSet());
     }
 
-    public static Topic dtoToTopic(NewTopicDto dto) {
+    public Topic dtoToTopic(NewTopicDto dto) {
         return new Topic(
                 dto.getTitle(),
                 dto.getDescription(),
@@ -117,15 +125,15 @@ public class Mapper {
 
 
     // ---POST---
-    public static PostPreviewDto postToPreviewDto(Post post) {
+    public PostPreviewDto postToPreviewDto(Post post) {
         return new PostPreviewDto(post.getId(), post.getTitle());
     }
 
-    public static Set<PostPreviewDto> postsToPreviewDto(Collection<Post> posts) {
-        return posts.stream().map(Mapper::postToPreviewDto).collect(Collectors.toSet());
+    public Set<PostPreviewDto> postsToPreviewDto(Collection<Post> posts) {
+        return posts.stream().map(this::postToPreviewDto).collect(Collectors.toSet());
     }
 
-    public static PostDto postToDto(Post post) {
+    public PostDto postToDto(Post post) {
         return new PostDto(
                 post.getId(),
                 post.getTitle(),
@@ -139,7 +147,7 @@ public class Mapper {
         );
     }
 
-    public static Post dtoToPost(NewPostDto dto) {
+    public Post dtoToPost(NewPostDto dto) {
         return new Post(
                 dto.getTitle(),
                 dto.getText(),
@@ -151,20 +159,27 @@ public class Mapper {
 
 
     // ---COMMENT---
-    public static CommentDto commentToDto(Comment comment) {
-        return new CommentDto(
-                comment.getId(),
-                comment.getText(),
-                comment.getPostDate(),
-                comment.getReplyTo().getId(),
-                userToPreviewDto(comment.getAuthor()),
-                comment.getVotes().stream().filter(v -> v.getVote() == VoteType.UPVOTE).count(),
-                comment.getVotes().stream().filter(v -> v.getVote() == VoteType.DOWNVOTE).count()
-        );
+    public List<CommentDto> commentsToDto(Collection<Comment> comments) {
+        List<Comment> originalComments = comments.stream()
+                .filter(c -> c.getReplyTo().equals(null))
+                .sorted((c1, c2) -> (int) (c1.getPostDate().getTime() - c2.getPostDate().getTime()))
+                .collect(Collectors.toList());
+        return setReplies(originalComments);
     }
 
+    private List<CommentDto> setReplies(Collection<Comment> comments) {
+        return comments.stream()
+                .sorted((c1, c2) -> (int) (c1.getPostDate().getTime() - c2.getPostDate().getTime()))
+                .map(c -> new CommentDto(
+                    c.getId(), c.getText(), c.getPostDate(),
+                    userToPreviewDto(c.getAuthor()),
+                    setReplies(c.getReplies()),
+                    c.getVotes().stream().filter(v -> v.getVote() == VoteType.UPVOTE).count(),
+                    c.getVotes().stream().filter(v -> v.getVote() == VoteType.DOWNVOTE).count()
+        )).collect(Collectors.toList());
+    }
 
-    public static Comment dtoToComment(NewCommentDto dto) {
+    public Comment dtoToComment(NewCommentDto dto) {
         return new Comment(
                 dto.getText(),
                 userRepo.getById(dto.getAuthorId()),
@@ -172,81 +187,4 @@ public class Mapper {
                 commentRepo.getById(dto.getReplyToId())
         );
     }
-
-
-    public static Set<CommentDto> commentsToDto(Collection<Comment> comments) {
-        return comments.stream().map(Mapper::commentToDto).collect(Collectors.toSet());
-    }
-
-
-
-
-//    // ---COMMENT EXTRAS---
-
-//    public static Set<CommentGraphDto> commentsToDtoGraph(Set<Comment> comments) {
-//        Set<Comment> originalComments = comments.stream()
-//                .filter(c -> c.getReplyTo().equals(null))
-//                .collect(Collectors.toSet());
-//        return setReplies(originalComments);
-//    }
-//
-//    private static Set<CommentGraphDto> setReplies(Set<Comment> comments) {
-//        return comments.stream().map(c -> new CommentGraphDto(
-//                c.getId(), c.getText(), c.getPostDate(),
-//                userToPreviewDto(c.getAuthor()),
-//                setReplies(c.getReplies()),
-//                c.getVotes().stream().filter(v -> v.getVote() == VoteType.UPVOTE).count(),
-//                c.getVotes().stream().filter(v -> v.getVote() == VoteType.DOWNVOTE).count()
-//        )).collect(Collectors.toSet());
-//    }
-//
-//    static class CommentGraphDto {
-//
-//        private final Long commentId;
-//        private final String text;
-//        private final Date postDate;
-//        private final UserPreviewDto author;
-//        private final Set<CommentGraphDto> replies;
-//        private final Long upvotes;
-//        private final Long downvotes;
-//
-//        public CommentGraphDto(Long commentId, String text, Date postDate, UserPreviewDto author,
-//                               Set<CommentGraphDto> replies, Long upvotes, Long downvotes) {
-//            this.commentId = commentId;
-//            this.text = text;
-//            this.postDate = postDate;
-//            this.author = author;
-//            this.replies = replies;
-//            this.upvotes = upvotes;
-//            this.downvotes = downvotes;
-//        }
-//
-//        public Long getCommentId() {
-//            return commentId;
-//        }
-//
-//        public String getText() {
-//            return text;
-//        }
-//
-//        public Date getPostDate() {
-//            return postDate;
-//        }
-//
-//        public UserPreviewDto getAuthor() {
-//            return author;
-//        }
-//
-//        public Set<CommentGraphDto> getReplies() {
-//            return replies;
-//        }
-//
-//        public Long getUpvotes() {
-//            return upvotes;
-//        }
-//
-//        public Long getDownvotes() {
-//            return downvotes;
-//        }
-//    }
 }

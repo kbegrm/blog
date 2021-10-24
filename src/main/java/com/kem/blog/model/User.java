@@ -21,8 +21,11 @@ public class User {
     private String email;
     private Date registerDate;
     private Boolean enabled;
-    private Set<Role> roles;
-    private Set<Authorities> authorities;
+    @Embedded
+    private Role role;
+
+//    private Set<Role> roles;
+//    private Set<Authorities> authorities;
 
     @ManyToMany
     private Set<Topic> subscriptions;
@@ -167,19 +170,27 @@ public class User {
         this.commentVotes = commentVotes;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public Set<Authorities> getAuthorities() {
-        return authorities;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
 
-    public void setAuthorities(Set<Authorities> authorities) {
-        this.authorities = authorities;
-    }
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+
+//    public Set<Authorities> getAuthorities() {
+//        return authorities;
+//    }
+
+//    public void setAuthorities(Set<Authorities> authorities) {
+//        this.authorities = authorities;
+//    }
 }

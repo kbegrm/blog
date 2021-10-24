@@ -5,9 +5,11 @@ import com.kem.blog.dto.user.UserPreviewDto;
 import com.kem.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -26,12 +28,12 @@ public class UserController {
 
 
     @GetMapping("/id")
-    public UserDto get(UUID id) {
+    public UserDto get(@NotNull @RequestBody UUID id) {
         return userService.getById(id);
     }
 
     @GetMapping("/username")
-    public Collection<UserPreviewDto> get(String username) {
+    public Collection<UserPreviewDto> get(@NotNull @RequestBody String username) {
         return userService.getByUsername(username);
     }
 }

@@ -17,23 +17,26 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
-    UserRepo userRepo;
+    private UserRepo userRepo;
+    private Mapper mapper;
+
 
     @Autowired
-    public UserService(UserRepo userRepo) {
+    public UserService(UserRepo userRepo, Mapper mapper) {
         this.userRepo = userRepo;
+        this.mapper = mapper;
     }
 
 
 
     public UserDto getById(UUID id) {
         User user = userRepo.getById(id);
-        return Mapper.userToDto(user);
+        return mapper.userToDto(user);
     }
 
     public Collection<UserPreviewDto> getByUsername(String username) {
         return userRepo.findByUsername(username)
-                .stream().map(Mapper::userToPreviewDto)
+                .stream().map(mapper::userToPreviewDto)
                 .collect(Collectors.toSet());
     }
 }

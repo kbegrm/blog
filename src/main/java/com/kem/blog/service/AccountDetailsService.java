@@ -6,6 +6,7 @@ import com.kem.blog.dto.user.CredentialsUpdateDto;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,23 +17,24 @@ import java.util.UUID;
 public class AccountDetailsService {
 
     private UserRepo userRepo;
+    private Mapper mapper;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AccountDetailsService(UserRepo userRepo) {
+    public AccountDetailsService(UserRepo userRepo, Mapper mapper, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
 
      public void register(RegisterDto dto) {
-        User newUser = Mapper.AccCredToUser(dto);
+        User newUser = mapper.RegisterDtoToUser(dto);
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         newUser.setEnabled(true);       // TODO активация после подтверждения почты; проверка надежности пороля
         userRepo.save(newUser);
     }
-
-//    SomeToken signIn(AccountDto dto){      // TODO вход в аккаунт. ссессия или токен
-//
-//    }
 
     public void changeUsername(CredentialsUpdateDto dto) {
         User user = userRepo.getById(dto.getUserid());

@@ -19,17 +19,20 @@ public class CommentService {
     private CommentRepo commentRepo;
     private UserRepo userRepo;
     private PostRepo postRepo;
+    private Mapper mapper;
+
 
     @Autowired
-    public CommentService(CommentRepo commentRepo, UserRepo userRepo, PostRepo postRepo) {
+    public CommentService(CommentRepo commentRepo, UserRepo userRepo, PostRepo postRepo, Mapper mapper) {
         this.commentRepo = commentRepo;
         this.userRepo = userRepo;
         this.postRepo = postRepo;
+        this.mapper = mapper;
     }
 
 
     public void create(NewCommentDto dto) {
-        Comment comment = Mapper.dtoToComment(dto);
+        Comment comment = mapper.dtoToComment(dto);
         commentRepo.save(comment);
     }
 

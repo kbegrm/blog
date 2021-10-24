@@ -26,27 +26,27 @@ public class PostController {
 
 
     @PostMapping
-    public void create(@Valid NewPostDto dto) {
+    public void create(@Valid @RequestBody NewPostDto dto) {
         postService.create(dto);
     }
 
     @GetMapping
-    public PostDto get(@NotNull Long postId) {
+    public PostDto get(@NotNull @RequestBody Long postId) {
         return postService.get(postId);
     }
 
     @PostMapping("/title")
-    public void updateTitle(@Valid PostUpdateDto dto) {
+    public void updateTitle(@Valid @RequestBody PostUpdateDto dto) {
         postService.updateTitle(dto);
     }
 
     @PostMapping("/text")
-    public void updateText(@Valid PostUpdateDto dto) {
+    public void updateText(@Valid @RequestBody PostUpdateDto dto) {
         postService.updateText(dto);
     }
 
     @DeleteMapping
-    public void delete(Long postId) {
+    public void delete(@NotNull @RequestBody Long postId) {
         postService.deletePost(postId);
     }
 }

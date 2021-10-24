@@ -20,24 +20,27 @@ public class PostService {
     private PostRepo postRepo;
     private UserRepo userRepo;
     private TopicRepo topicRepo;
+    private Mapper mapper;
+
 
     @Autowired
-    public PostService(PostRepo postRepo, UserRepo userRepo, TopicRepo topicRepo) {
+    public PostService(PostRepo postRepo, UserRepo userRepo, TopicRepo topicRepo, Mapper mapper) {
         this.postRepo = postRepo;
         this.userRepo = userRepo;
         this.topicRepo = topicRepo;
+        this.mapper = mapper;
     }
 
 
 
     public void create(NewPostDto dto) {
-        Post post = Mapper.dtoToPost(dto);
+        Post post = mapper.dtoToPost(dto);
         postRepo.save(post);
     }
 
     public PostDto get(Long id) {
         Post post = postRepo.getById(id);
-        return Mapper.postToDto(post);
+        return mapper.postToDto(post);
     }
 
     public void updateTitle(PostUpdateDto dto) {

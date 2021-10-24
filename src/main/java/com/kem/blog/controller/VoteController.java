@@ -5,6 +5,7 @@ import com.kem.blog.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,12 +27,12 @@ public class VoteController {
 
 
     @PostMapping("/comment")
-    public void voteComment(@Valid VoteDto dto) {
+    public void voteComment(@Valid @RequestBody VoteDto dto) {
         voteService.voteComment(dto);
     }
 
     @PostMapping("/post")
-    public void votePost(@Valid VoteDto dto) {
+    public void votePost(@Valid @RequestBody VoteDto dto) {
         voteService.votePost(dto);
     }
 }

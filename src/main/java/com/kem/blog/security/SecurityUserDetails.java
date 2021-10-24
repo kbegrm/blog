@@ -18,16 +18,22 @@ public class SecurityUserDetails implements UserDetails {
     }
 
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//        user.getAuthorities().stream()
+//                .map(a -> new SimpleGrantedAuthority(a.name()))
+//                .forEach(authorities::add);
+//        user.getRoles().stream()
+//                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
+//                .forEach(authorities::add);
+//        return authorities;
+//    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        user.getAuthorities().stream()
-                .map(a -> new SimpleGrantedAuthority(a.name()))
-                .forEach(authorities::add);
-        user.getRoles().stream()
-                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
-                .forEach(authorities::add);
-        return authorities;
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
 
     @Override
