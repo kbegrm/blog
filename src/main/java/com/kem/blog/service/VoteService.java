@@ -50,7 +50,13 @@ public class VoteService {
         Post post = postRepo.getById(dto.getTargetId());
         if (type.equals(VoteType.NONE))
             postVoteRepo.deleteById(new PostVoteId(voter, post));
-        PostVote vote = new PostVote(voter, post, dto.getType());
-        postVoteRepo.save(vote);
+        else {
+            PostVote vote = new PostVote(voter, post, type);
+            System.out.println("vote type: "+type.name());
+            System.out.println("username: "+voter.getUsername());
+            System.out.println("post title: "+post.getTitle());
+            postVoteRepo.save(vote);
+            System.out.println("EEEEEEEEE");
+        }
     }
 }
