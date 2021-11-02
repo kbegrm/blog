@@ -1,4 +1,4 @@
-package com.kem.blog.dto.user;
+package com.kem.blog.dto.user.Credentials;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

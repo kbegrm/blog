@@ -2,16 +2,16 @@ package com.kem.blog.dto.topic;
 
 public class TopicPreviewDto {
 
-    private final Long topicId;
+    private final Long id;
     private final String title;
 
-    public TopicPreviewDto(Long topicId, String title) {
-        this.topicId = topicId;
+    public TopicPreviewDto(Long id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public Long getTopicId() {
-        return topicId;
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {

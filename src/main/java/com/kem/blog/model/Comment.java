@@ -4,13 +4,14 @@ import com.kem.blog.model.Vote.CommentVote;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Lob
     private String text;
@@ -20,12 +21,12 @@ public class Comment {
     private User author;
     @ManyToOne
     private Post post;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Comment replyTo;
     @OneToMany(mappedBy = "replyTo")
-    private Set<Comment> replies;
+    private List<Comment> replies;
     @OneToMany(mappedBy = "comment")
-    private Set<CommentVote> votes;
+    private List<CommentVote> votes;
 
 
     public Comment() {
@@ -87,19 +88,19 @@ public class Comment {
         this.replyTo = replyTo;
     }
 
-    public Set<Comment> getReplies() {
+    public List<Comment> getReplies() {
         return replies;
     }
 
-    public void setReplies(Set<Comment> replies) {
+    public void setReplies(List<Comment> replies) {
         this.replies = replies;
     }
 
-    public Set<CommentVote> getVotes() {
+    public List<CommentVote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<CommentVote> votes) {
+    public void setVotes(List<CommentVote> votes) {
         this.votes = votes;
     }
 }

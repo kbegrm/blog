@@ -1,4 +1,4 @@
-package com.kem.blog.dto.user;
+package com.kem.blog.dto.user.Credentials;
 
 import com.kem.blog.validation.EmailUpdate;
 import com.kem.blog.validation.PasswordUpdate;

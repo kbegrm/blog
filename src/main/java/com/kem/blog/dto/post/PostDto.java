@@ -6,26 +6,22 @@ import com.kem.blog.dto.user.UserPreviewDto;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-public class PostDto {
+public class PostDto extends PostPreviewDto{
 
-    private final Long postId;
-    private final String title;
     private final String text;
-    private final Date postDate;
     private final UserPreviewDto author;
     private final TopicPreviewDto topic;
-    private final Collection<CommentDto> comments;
+    private final List<CommentDto> comments;
     private final Long upvotes;
     private final Long downvotes;
 
-    public PostDto(Long postId, String title, String text, Date postDate,
-                   UserPreviewDto author, TopicPreviewDto topic,
-                   Collection<CommentDto> comments, Long upvotes, Long downvotes) {
-        this.postId = postId;
-        this.title = title;
+    public PostDto(Long id, String title, Date postDate,
+                   String text, UserPreviewDto author, TopicPreviewDto topic,
+                   List<CommentDto> comments, Long upvotes, Long downvotes) {
+        super(id, title, postDate);
         this.text = text;
-        this.postDate = postDate;
         this.author = author;
         this.topic = topic;
         this.comments = comments;
@@ -33,20 +29,8 @@ public class PostDto {
         this.downvotes = downvotes;
     }
 
-    public Long getPostId() {
-        return postId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
     public String getText() {
         return text;
-    }
-
-    public Date getPostDate() {
-        return postDate;
     }
 
     public UserPreviewDto getAuthor() {
@@ -57,7 +41,7 @@ public class PostDto {
         return topic;
     }
 
-    public Collection<CommentDto> getComments() {
+    public List<CommentDto> getComments() {
         return comments;
     }
 

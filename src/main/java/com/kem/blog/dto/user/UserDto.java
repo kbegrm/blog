@@ -4,43 +4,33 @@ import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.dto.topic.TopicPreviewDto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class UserDto {
+public class UserDto extends UserPreviewDto {
 
-    private final UUID userId;
-    private final String username;
     private final Date registerDate;
-    private final Set<TopicPreviewDto> topics;
-    private final Set<PostPreviewDto> posts;
+    private final List<TopicPreviewDto> topics;
+    private final List<PostPreviewDto> posts;
 
-    public UserDto(UUID userId, String username, Date registerDate,
-                   Set<TopicPreviewDto> topics, Set<PostPreviewDto> posts) {
-        this.userId = userId;
-        this.username = username;
+    public UserDto(UUID id, String username, Date registerDate,
+                   List<TopicPreviewDto> topics, List<PostPreviewDto> posts) {
+        super(id, username);
         this.registerDate = registerDate;
         this.topics = topics;
         this.posts = posts;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public Date getRegisterDate() {
         return registerDate;
     }
 
-    public Set<TopicPreviewDto> getTopics() {
+    public List<TopicPreviewDto> getTopics() {
         return topics;
     }
 
-    public Set<PostPreviewDto> getPosts() {
+    public List<PostPreviewDto> getPosts() {
         return posts;
     }
 }

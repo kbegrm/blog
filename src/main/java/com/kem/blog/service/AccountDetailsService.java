@@ -1,8 +1,9 @@
 package com.kem.blog.service;
 
 import com.kem.blog.dto.Mapper;
-import com.kem.blog.dto.user.RegisterDto;
-import com.kem.blog.dto.user.CredentialsUpdateDto;
+import com.kem.blog.dto.user.Credentials.RegisterDto;
+import com.kem.blog.dto.user.Credentials.CredentialsUpdateDto;
+import com.kem.blog.model.Role;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class AccountDetailsService {
      public void register(RegisterDto dto) {
         User newUser = mapper.RegisterDtoToUser(dto);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.setRole(Role.USER);
         newUser.setEnabled(true);       // TODO активация после подтверждения почты; проверка надежности пороля
         userRepo.save(newUser);
     }

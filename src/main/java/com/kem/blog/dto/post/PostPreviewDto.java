@@ -1,19 +1,28 @@
 package com.kem.blog.dto.post;
 
-public class PostPreviewDto {
-    private final Long postId;
-    private final String title;
+import java.util.Date;
 
-    public PostPreviewDto(Long postId, String title) {
-        this.postId = postId;
+public class PostPreviewDto {
+
+    private final Long id;
+    private final String title;
+    private final Date postDate;
+
+    public PostPreviewDto(Long postId, String title, Date postDate) {
+        this.id = postId;
         this.title = title;
+        this.postDate = postDate;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public Date getPostDate() {
+        return postDate;
     }
 }

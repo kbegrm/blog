@@ -4,11 +4,10 @@ import com.kem.blog.dto.user.UserPreviewDto;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class CommentDto {
 
-    private final Long commentId;
+    private final Long id;
     private final String text;
     private final Date postDate;
     private final UserPreviewDto author;
@@ -16,10 +15,10 @@ public class CommentDto {
     private final Long upvotes;
     private final Long downvotes;
 
-    public CommentDto(Long commentId, String text, Date postDate,
+    public CommentDto(Long id, String text, Date postDate,
                       UserPreviewDto author, List<CommentDto> replies,
                       Long upvotes, Long downvotes) {
-        this.commentId = commentId;
+        this.id = id;
         this.text = text;
         this.postDate = postDate;
         this.replies = replies;
@@ -28,8 +27,8 @@ public class CommentDto {
         this.downvotes = downvotes;
     }
 
-    public Long getCommentId() {
-        return commentId;
+    public Long getId() {
+        return id;
     }
 
     public String getText() {
@@ -40,12 +39,12 @@ public class CommentDto {
         return postDate;
     }
 
-    public List<CommentDto> getReplies() {
-        return replies;
-    }
-
     public UserPreviewDto getAuthor() {
         return author;
+    }
+
+    public List<CommentDto> getReplies() {
+        return replies;
     }
 
     public Long getUpvotes() {

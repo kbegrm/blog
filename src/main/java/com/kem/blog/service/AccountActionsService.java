@@ -1,9 +1,9 @@
 package com.kem.blog.service;
 
 import com.kem.blog.dto.Mapper;
-import com.kem.blog.dto.user.AccountDto;
-import com.kem.blog.dto.user.FollowDto;
-import com.kem.blog.dto.user.SubDto;
+import com.kem.blog.dto.user.Account.AccountDto;
+import com.kem.blog.dto.user.Account.FollowDto;
+import com.kem.blog.dto.user.Account.SubDto;
 import com.kem.blog.model.Topic;
 import com.kem.blog.model.User;
 import com.kem.blog.repository.TopicRepo;

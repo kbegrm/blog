@@ -8,8 +8,8 @@ import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.dto.topic.NewTopicDto;
 import com.kem.blog.dto.topic.TopicDto;
 import com.kem.blog.dto.topic.TopicPreviewDto;
-import com.kem.blog.dto.user.AccountDto;
-import com.kem.blog.dto.user.RegisterDto;
+import com.kem.blog.dto.user.Account.AccountDto;
+import com.kem.blog.dto.user.Credentials.RegisterDto;
 import com.kem.blog.dto.user.UserDto;
 import com.kem.blog.dto.user.UserPreviewDto;
 import com.kem.blog.model.Comment;
@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -66,12 +65,12 @@ public class Mapper {
         return new AccountDto(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail(),
                 user.getRegisterDate(),
-                user.getEnabled(),
                 topicsToPreviewDto(user.getCreatedTopics()),
-                topicsToPreviewDto(user.getSubscriptions()),
-                postsToPreviewDto(user.getPosts())
+                postsToPreviewDto(user.getPosts()),
+                user.getEmail(),
+                user.getEnabled(),
+                topicsToPreviewDto(user.getSubscriptions())
         );
     }
 
@@ -88,20 +87,22 @@ public class Mapper {
     // ---TOPIC---
     public TopicDto topicToDto(Topic topic) {
         return new TopicDto(
-                userToPreviewDto(topic.getCreator()),
                 topic.getId(),
                 topic.getTitle(),
                 topic.getDescription(),
+                topic.getCreationDate(),
+                userToPreviewDto(topic.getCreator()),
                 postsToPreviewDto(topic.getPosts())
         );
     }
 
     public TopicDto topicToDtoLimitPosts(Topic topic) {
         return new TopicDto(
-                userToPreviewDto(topic.getCreator()),
                 topic.getId(),
                 topic.getTitle(),
                 topic.getDescription(),
+                topic.getCreationDate(),
+                userToPreviewDto(topic.getCreator()),
                 postsToPreviewDto(postRepo.findFirst10ByTopicOrderByPostDateDesc(topic))
         );
     }
@@ -110,8 +111,8 @@ public class Mapper {
         return new TopicPreviewDto(topic.getId(), topic.getTitle());
     }
 
-    public Set<TopicPreviewDto> topicsToPreviewDto(Collection<Topic> topics) {
-        return topics.stream().map(this::topicToPreviewDto).collect(Collectors.toSet());
+    public List<TopicPreviewDto> topicsToPreviewDto(Collection<Topic> topics) {
+        return topics.stream().map(this::topicToPreviewDto).collect(Collectors.toList());
     }
 
     public Topic dtoToTopic(NewTopicDto dto) {
@@ -126,19 +127,19 @@ public class Mapper {
 
     // ---POST---
     public PostPreviewDto postToPreviewDto(Post post) {
-        return new PostPreviewDto(post.getId(), post.getTitle());
+        return new PostPreviewDto(post.getId(), post.getTitle(), post.getPostDate());
     }
 
-    public Set<PostPreviewDto> postsToPreviewDto(Collection<Post> posts) {
-        return posts.stream().map(this::postToPreviewDto).collect(Collectors.toSet());
+    public List<PostPreviewDto> postsToPreviewDto(Collection<Post> posts) {
+        return posts.stream().map(this::postToPreviewDto).collect(Collectors.toList());
     }
 
     public PostDto postToDto(Post post) {
         return new PostDto(
                 post.getId(),
                 post.getTitle(),
-                post.getText(),
                 post.getPostDate(),
+                post.getText(),
                 userToPreviewDto(post.getAuthor()),
                 topicToPreviewDto(post.getTopic()),
                 commentsToDto(post.getComments()),
@@ -184,7 +185,7 @@ public class Mapper {
                 dto.getText(),
                 userRepo.getById(dto.getAuthorId()),
                 postRepo.getById(dto.getPostId()),
-                commentRepo.getById(dto.getReplyToId())
+                dto.getReplyToId() == null ? null : commentRepo.getById(dto.getReplyToId())
         );
     }
 }

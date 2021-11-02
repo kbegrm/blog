@@ -3,42 +3,38 @@ package com.kem.blog.dto.topic;
 import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.dto.user.UserPreviewDto;
 
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
-public class TopicDto {
+public class TopicDto extends TopicPreviewDto{
 
-    private final UserPreviewDto author;
-    private final Long topicId;
-    private final String title;
     private final String description;
-    private final Set<PostPreviewDto> posts;
+    private final Date creationDate;
+    private final UserPreviewDto creator;
+    private final List<PostPreviewDto> posts;
 
-    public TopicDto(UserPreviewDto author, Long topicId, String title,
-                    String description, Set<PostPreviewDto> posts) {
-        this.author = author;
-        this.topicId = topicId;
-        this.title = title;
+    public TopicDto(Long topicId, String title, String description,
+                    Date creationDate, UserPreviewDto creator, List<PostPreviewDto> posts) {
+        super(topicId, title);
         this.description = description;
+        this.creationDate = creationDate;
+        this.creator = creator;
         this.posts = posts;
-    }
-
-    public UserPreviewDto getAuthorId() {
-        return author;
-    }
-
-    public Long getTopicId() {
-        return topicId;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Set<PostPreviewDto> getPosts() {
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public UserPreviewDto getCreator() {
+        return creator;
+    }
+
+    public List<PostPreviewDto> getPosts() {
         return posts;
     }
 }

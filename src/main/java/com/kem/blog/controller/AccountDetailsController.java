@@ -1,8 +1,8 @@
 package com.kem.blog.controller;
 
-import com.kem.blog.dto.user.CredentialsDto;
-import com.kem.blog.dto.user.CredentialsUpdateDto;
-import com.kem.blog.dto.user.RegisterDto;
+import com.kem.blog.dto.user.Credentials.CredentialsDto;
+import com.kem.blog.dto.user.Credentials.CredentialsUpdateDto;
+import com.kem.blog.dto.user.Credentials.RegisterDto;
 import com.kem.blog.service.AccountDetailsService;
 import com.kem.blog.validation.EmailUpdate;
 import com.kem.blog.validation.PasswordUpdate;

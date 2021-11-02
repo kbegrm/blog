@@ -13,7 +13,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     private String username;
     private String password;
@@ -21,7 +21,7 @@ public class User {
     private String email;
     private Date registerDate;
     private Boolean enabled;
-    @Embedded
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 //    private Set<Role> roles;

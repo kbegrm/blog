@@ -4,16 +4,16 @@ import java.util.UUID;
 
 public class UserPreviewDto {
 
-    private final UUID userId;
+    private final UUID id;
     private final String username;
 
-    public UserPreviewDto(UUID userId, String username) {
-        this.userId = userId;
+    public UserPreviewDto(UUID id, String username) {
+        this.id = id;
         this.username = username;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public UUID getId() {
+        return id;
     }
 
     public String getUsername() {

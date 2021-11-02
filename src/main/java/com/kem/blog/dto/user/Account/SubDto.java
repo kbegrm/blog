@@ -1,4 +1,4 @@
-package com.kem.blog.dto.user;
+package com.kem.blog.dto.user.Account;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
