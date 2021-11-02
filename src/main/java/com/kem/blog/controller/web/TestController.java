@@ -1,8 +1,8 @@
 package com.kem.blog.controller.web;
 
 import com.kem.blog.dto.Mapper;
-import com.kem.blog.dto.post.PostPreviewDto;
 import com.kem.blog.model.Post;
+import com.kem.blog.model.Vote.VoteType;
 import com.kem.blog.repository.PostRepo;
 import com.kem.blog.service.PostService;
 import org.springframework.stereotype.Controller;
@@ -41,12 +41,13 @@ public class TestController {
                 Date.from(Instant.now().minus(Duration.ofHours(24))));
         posts = posts.stream()
                 .sorted(Comparator.comparing(Post::getPostDate).reversed())
+                .sorted((p1, p2) ->
+                        (int) ( -1 * ((p1.getVotes().stream().filter(v -> v.getVote().equals(VoteType.UPVOTE)).count()
+                                - p2.getVotes().stream().filter(v -> v.getVote().equals(VoteType.UPVOTE)).count()))))
                 .limit(TOP_POSTS_AMOUNT).collect(Collectors.toList());
         model.addAttribute("posts", posts);
         model.addAttribute("pageTitle", "top posts");
         model.addAttribute("header", "top posts");
-//        List<PostPreviewDto> dtos = mapper.postsToPreviewDto(posts);
-//        model.addAttribute("posts", dtos);
         return "test";
     }
 }

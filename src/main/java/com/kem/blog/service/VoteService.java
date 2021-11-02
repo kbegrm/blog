@@ -31,15 +31,12 @@ public class VoteService {
         this.postRepo = postRepo;
     }
 
-
-
+    // TODO unvote()
 
     public void voteComment(VoteDto dto) {
         VoteType type = dto.getType();
         User voter = userRepo.getById(dto.getVoterId());
         Comment comment = commentRepo.getById(dto.getTargetId());
-        if (type.equals(VoteType.NONE))
-            commentVoteRepo.deleteById(new CommentVoteId(voter, comment));
         CommentVote vote = new CommentVote(voter, comment, dto.getType());
         commentVoteRepo.save(vote);
     }
@@ -48,15 +45,11 @@ public class VoteService {
         VoteType type = dto.getType();
         User voter = userRepo.getById(dto.getVoterId());
         Post post = postRepo.getById(dto.getTargetId());
-        if (type.equals(VoteType.NONE))
-            postVoteRepo.deleteById(new PostVoteId(voter, post));
-        else {
-            PostVote vote = new PostVote(voter, post, type);
-            System.out.println("vote type: "+type.name());
-            System.out.println("username: "+voter.getUsername());
-            System.out.println("post title: "+post.getTitle());
-            postVoteRepo.save(vote);
-            System.out.println("EEEEEEEEE");
-        }
+        PostVote vote = new PostVote(voter, post, type);
+        System.out.println("vote type: " + type.name());
+        System.out.println("username: " + voter.getUsername());
+        System.out.println("post title: " + post.getTitle());
+        postVoteRepo.save(vote);
+        System.out.println("EEEEEEEEE");
     }
 }

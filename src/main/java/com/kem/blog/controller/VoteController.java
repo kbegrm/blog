@@ -23,7 +23,7 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-
+    // TODO prevent multiple votes
 
 
     @PostMapping("/comment")

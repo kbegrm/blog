@@ -6,13 +6,13 @@ import com.kem.blog.model.User;
 import javax.persistence.*;
 
 @Entity
-@IdClass(PostVoteId.class)
 public class PostVote {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne
     private User voter;
-    @Id
     @ManyToOne
     private Post post;
     @Enumerated(EnumType.STRING)
@@ -28,6 +28,13 @@ public class PostVote {
         this.vote = vote;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getVoter() {
         return voter;
