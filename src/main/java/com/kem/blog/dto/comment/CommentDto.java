@@ -11,17 +11,14 @@ public class CommentDto {
     private final String text;
     private final Date postDate;
     private final UserPreviewDto author;
-    private final List<CommentDto> replies;
     private final Long upvotes;
     private final Long downvotes;
 
-    public CommentDto(Long id, String text, Date postDate,
-                      UserPreviewDto author, List<CommentDto> replies,
+    public CommentDto(Long id, String text, Date postDate,UserPreviewDto author,
                       Long upvotes, Long downvotes) {
         this.id = id;
         this.text = text;
         this.postDate = postDate;
-        this.replies = replies;
         this.author = author;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
@@ -41,10 +38,6 @@ public class CommentDto {
 
     public UserPreviewDto getAuthor() {
         return author;
-    }
-
-    public List<CommentDto> getReplies() {
-        return replies;
     }
 
     public Long getUpvotes() {

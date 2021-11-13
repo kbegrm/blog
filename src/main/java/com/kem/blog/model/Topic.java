@@ -2,6 +2,7 @@ package com.kem.blog.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,9 +20,9 @@ public class Topic {
     @ManyToOne
     private User creator;
     @OneToMany(mappedBy = "topic")
-    private Set<Post> posts;
+    private List<Post> posts;
     @ManyToMany(mappedBy = "subscriptions")
-    private Set<User> subscribers;
+    private List<User> subscribers;
 
 
     public Topic() {
@@ -74,19 +75,19 @@ public class Topic {
         this.creator = creator;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
-    public Set<User> getSubscribers() {
+    public List<User> getSubscribers() {
         return subscribers;
     }
 
-    public void setSubscribers(Set<User> subscribers) {
+    public void setSubscribers(List<User> subscribers) {
         this.subscribers = subscribers;
     }
 }

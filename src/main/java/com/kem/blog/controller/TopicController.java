@@ -3,13 +3,16 @@ package com.kem.blog.controller;
 import com.kem.blog.dto.topic.NewTopicDto;
 import com.kem.blog.dto.topic.TopicDto;
 import com.kem.blog.dto.topic.TopicUpdateDto;
+import com.kem.blog.security.SecurityUserDetails;
 import com.kem.blog.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/topic")
@@ -26,13 +29,9 @@ public class TopicController {
 
 
     @PostMapping
-    public void create(@Valid @RequestBody NewTopicDto dto) {
-        topicService.create(dto);
-    }
-
-    @GetMapping("/full")
-    public TopicDto getFull(@NotNull @RequestBody Long topicId) {
-        return topicService.getFull(topicId);
+    public void create(@Valid @RequestBody NewTopicDto dto,
+                       @AuthenticationPrincipal SecurityUserDetails user) {
+        topicService.create(dto, user);
     }
 
     @GetMapping

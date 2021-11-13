@@ -65,4 +65,8 @@ public class SecurityUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.getEnabled();
     }
+
+    public User getUser() {
+        return user;
+    }
 }

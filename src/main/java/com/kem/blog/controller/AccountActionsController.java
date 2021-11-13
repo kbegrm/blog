@@ -3,8 +3,10 @@ package com.kem.blog.controller;
 import com.kem.blog.dto.user.Account.AccountDto;
 import com.kem.blog.dto.user.Account.FollowDto;
 import com.kem.blog.dto.user.Account.SubDto;
+import com.kem.blog.security.SecurityUserDetails;
 import com.kem.blog.service.AccountActionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,36 +29,40 @@ public class AccountActionsController {
 
 
 
-    @GetMapping
-    public AccountDto getAccountInfo(@NotNull @RequestBody String userId) {
-        System.out.println(userId);
-        UUID uuid = UUID.fromString(userId);
-        return actionsService.getAccountInfo(uuid);
-    }
-
-    // TODO remove
     @GetMapping("/all")
     public List<UUID> getAllIds() {
         return actionsService.getAllIds();
+    }   // TODO remove
+
+
+
+    @GetMapping
+    public AccountDto getAccountInfo(@NotNull @RequestBody UUID id) {       // TODO test
+//        UUID uuid = UUID.fromString(userId);
+        return actionsService.getAccountInfo(id);
     }
 
     @PostMapping("/subscribe")
-    public void subscribe(@Valid @RequestBody SubDto dto) {
-        actionsService.subscribe(dto);
+    public void subscribe(@NotNull @RequestBody Long topicId,
+                          @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        actionsService.subscribe(topicId, userDetails.getUser());
     }
 
     @PostMapping("/unsubscribe")
-    public void unsubscribe(@Valid @RequestBody SubDto dto) {
-        actionsService.unsubscribe(dto);
+    public void unsubscribe(@NotNull @RequestBody Long topicId,
+                            @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        actionsService.unsubscribe(topicId, userDetails.getUser());
     }
 
     @PostMapping("follow")
-    public void follow(@Valid @RequestBody FollowDto dto) {
-        actionsService.follow(dto);
+    public void follow(@NotNull @RequestBody UUID followedId,
+                       @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        actionsService.follow(followedId, userDetails.getUser());
     }
 
     @PostMapping("/unfollow")
-    public void unfollow(@Valid @RequestBody FollowDto dto) {
-        actionsService.unfollow(dto);
+    public void unfollow(@NotNull @RequestBody UUID followedId,
+                         @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        actionsService.unfollow(followedId, userDetails.getUser());
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,25 +32,36 @@ public class VoteService {
         this.postRepo = postRepo;
     }
 
-    // TODO unvote()
 
-    public void voteComment(VoteDto dto) {
+    public void voteComment(VoteDto dto, User voter) {
         VoteType type = dto.getType();
-        User voter = userRepo.getById(dto.getVoterId());
         Comment comment = commentRepo.getById(dto.getTargetId());
-        CommentVote vote = new CommentVote(voter, comment, dto.getType());
-        commentVoteRepo.save(vote);
+        Optional<CommentVote> existingVote = commentVoteRepo.findByUserAndComment(voter, comment);
+
+        if (existingVote.isPresent()){
+            CommentVote vote = existingVote.get();
+            if (vote.getVote().equals(type))
+                commentVoteRepo.deleteById(vote.getId());
+            else
+                vote.setVote(type);
+        }
+        else
+            commentVoteRepo.save(new CommentVote(voter, comment, dto.getType()));
     }
 
-    public void votePost(VoteDto dto) {
+    public void votePost(VoteDto dto, User voter) {
         VoteType type = dto.getType();
-        User voter = userRepo.getById(dto.getVoterId());
         Post post = postRepo.getById(dto.getTargetId());
-        PostVote vote = new PostVote(voter, post, type);
-        System.out.println("vote type: " + type.name());
-        System.out.println("username: " + voter.getUsername());
-        System.out.println("post title: " + post.getTitle());
-        postVoteRepo.save(vote);
-        System.out.println("EEEEEEEEE");
+        Optional<PostVote> existingVote = postVoteRepo.findByUserAndPost(voter, post);
+
+        if (existingVote.isPresent()){
+            PostVote vote = existingVote.get();
+            if (vote.getVote().equals(type))
+                postVoteRepo.deleteById(vote.getId());
+            else
+                vote.setVote(type);
+        }
+        else
+            postVoteRepo.save(new PostVote(voter, post, dto.getType()));
     }
 }

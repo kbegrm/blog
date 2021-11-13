@@ -7,25 +7,18 @@ import java.util.UUID;
 public class NewPostDto {
 
     @NotNull
-    private final UUID authorId;
-    @NotNull
     private final Long topicId;
     @NotBlank
     private final String title;
     @NotBlank
     private final String text;
 
-    public NewPostDto(UUID authorId, Long topicId, String title, String text) {
-        this.authorId = authorId;
+    public NewPostDto(Long topicId, String title, String text) {
         this.topicId = topicId;
         this.title = title;
         this.text = text;
     }
 
-
-    public UUID getAuthorId() {
-        return authorId;
-    }
 
     public Long getTopicId() {
         return topicId;

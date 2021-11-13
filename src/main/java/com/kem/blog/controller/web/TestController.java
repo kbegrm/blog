@@ -37,8 +37,9 @@ public class TestController {
     @GetMapping("/top-posts")
     @Transactional
     public String getTopPosts(Model model) {
-        List<Post> posts = postRepo.findByPostDateAfter(
-                Date.from(Instant.now().minus(Duration.ofHours(24))));
+//        List<Post> posts = postRepo.findByPostDateAfter(
+//                Date.from(Instant.now().minus(Duration.ofHours(24))));
+        List<Post> posts = postRepo.findAll();
         posts = posts.stream()
                 .sorted(Comparator.comparing(Post::getPostDate).reversed())
                 .sorted((p1, p2) ->
@@ -48,6 +49,14 @@ public class TestController {
         model.addAttribute("posts", posts);
         model.addAttribute("pageTitle", "top posts");
         model.addAttribute("header", "top posts");
-        return "test";
+        return "Test";
     }
+
+    @GetMapping("/redirected-page")
+    public String redirectTo(Model model) {
+        System.out.println("REDIRECTING");
+        return "Redirected";
+    }
+
+
 }

@@ -39,30 +39,27 @@ public class AccountActionsService {
         return mapper.userToAccountDto(user);
     }
 
-    public void subscribe(SubDto dto){
-        User user = userRepo.getById(dto.getUserId());
-        Topic topic = topicRepo.getById(dto.getTopicId());
+    public void subscribe(Long topicId, User user){
+        Topic topic = topicRepo.getById(topicId);
         user.getSubscriptions().add(topic);
     }
 
-    public void unsubscribe(SubDto dto){
-        User user = userRepo.getById(dto.getUserId());
-        Topic topic = topicRepo.getById(dto.getTopicId());
+    public void unsubscribe(Long topicId, User user){
+        Topic topic = topicRepo.getById(topicId);
         user.getSubscriptions().remove(topic);
     }
 
-    public void follow(FollowDto dto){
-        User user = userRepo.getById(dto.getUserId());
-        User toBeFollowed = userRepo.getById(dto.getFollowedUserId());
+    public void follow(UUID followedId, User user){
+        User toBeFollowed = userRepo.getById(followedId);
         user.getFollowed().add(toBeFollowed);
     }
 
-    public void unfollow(FollowDto dto){
-        User user = userRepo.getById(dto.getUserId());
-        User toBeUnfollowed = userRepo.getById(dto.getFollowedUserId());
+    public void unfollow(UUID followedId, User user){
+        User toBeUnfollowed = userRepo.getById(followedId);
         user.getFollowed().remove(toBeUnfollowed);
     }
 
+    // TODO delete folow/sub dtos
     // TODO remove
     public List<UUID> getAllIds() {
         return userRepo.findAll().stream().map(User::getId).collect(Collectors.toList());

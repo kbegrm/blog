@@ -6,21 +6,14 @@ import java.util.UUID;
 
 public class NewTopicDto {
 
-    @NotNull
-    private final UUID authorId;
     @NotBlank
     private final String title;
     @NotBlank
     private final String description;
 
-    public NewTopicDto(UUID authorId, String title, String description) {
-        this.authorId = authorId;
+    public NewTopicDto(String title, String description) {
         this.title = title;
         this.description = description;
-    }
-
-    public UUID getAuthorId() {
-        return authorId;
     }
 
     public String getTitle() {

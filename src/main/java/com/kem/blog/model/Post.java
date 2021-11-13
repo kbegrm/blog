@@ -4,6 +4,7 @@ import com.kem.blog.model.Vote.PostVote;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,9 +23,9 @@ public class Post {
     @ManyToOne
     private Topic topic;
     @OneToMany(mappedBy = "post")
-    private Set<Comment> comments;
+    private List<Comment> comments;
     @OneToMany(mappedBy = "post")
-    private Set<PostVote> votes;
+    private List<PostVote> votes;
 
 
 
@@ -88,19 +89,19 @@ public class Post {
         this.topic = topic;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public Set<PostVote> getVotes() {
+    public List<PostVote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<PostVote> votes) {
+    public void setVotes(List<PostVote> votes) {
         this.votes = votes;
     }
 }

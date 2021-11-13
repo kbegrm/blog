@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${pageTitle}">Title</title>
+</head>
+<body>
+<h1 th:text="${header}">Create Topic</h1>
+<form action="/web/topic/create">
+  <label for="title">Topic title</label><br>
+  <input type="text" id="title" name="title" size="50"><br>
+  <label for="description">Topic description</label><br>
+  <textarea type="text" id="description" name="description" rows="20" cols="100" style="resize: none;"></textarea><br>
+</form>
+</body>
+</html>

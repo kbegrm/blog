@@ -21,10 +21,6 @@ public class Comment {
     private User author;
     @ManyToOne
     private Post post;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Comment replyTo;
-    @OneToMany(mappedBy = "replyTo")
-    private List<Comment> replies;
     @OneToMany(mappedBy = "comment")
     private List<CommentVote> votes;
 
@@ -32,11 +28,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String text, User author, Post post, Comment replyTo) {
+    public Comment(String text, User author, Post post) {
         this.text = text;
         this.author = author;
         this.post = post;
-        this.replyTo = replyTo;
         this.postDate = new Date();
     }
 
@@ -78,22 +73,6 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
-    }
-
-    public Comment getReplyTo() {
-        return replyTo;
-    }
-
-    public void setReplyTo(Comment replyTo) {
-        this.replyTo = replyTo;
-    }
-
-    public List<Comment> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<Comment> replies) {
-        this.replies = replies;
     }
 
     public List<CommentVote> getVotes() {

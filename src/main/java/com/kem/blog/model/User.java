@@ -5,6 +5,7 @@ import com.kem.blog.model.Vote.PostVote;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,21 +29,21 @@ public class User {
 //    private Set<Authorities> authorities;
 
     @ManyToMany
-    private Set<Topic> subscriptions;
+    private List<Topic> subscriptions;
     @OneToMany(mappedBy = "creator")
-    private Set<Topic> createdTopics;
+    private List<Topic> createdTopics;
     @OneToMany(mappedBy = "author")
-    private Set<Post> posts;
+    private List<Post> posts;
     @OneToMany(mappedBy = "author")
-    private Set<Comment> comments;
+    private List<Comment> comments;
     @OneToMany(mappedBy = "voter")
-    private Set<PostVote> postVotes;
+    private List<PostVote> postVotes;
     @OneToMany(mappedBy = "voter")
-    private Set<CommentVote> commentVotes;
+    private List<CommentVote> commentVotes;
     @ManyToMany
-    private Set<User> followed;
+    private List<User> followed;
     @ManyToMany(mappedBy = "followed")
-    private Set<User> followers;
+    private List<User> followers;
 
 
 
@@ -106,67 +107,67 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Topic> getSubscriptions() {
+    public List<Topic> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(Set<Topic> subscriptions) {
+    public void setSubscriptions(List<Topic> subscriptions) {
         this.subscriptions = subscriptions;
     }
 
-    public Set<Topic> getCreatedTopics() {
+    public List<Topic> getCreatedTopics() {
         return createdTopics;
     }
 
-    public void setCreatedTopics(Set<Topic> createdTopics) {
+    public void setCreatedTopics(List<Topic> createdTopics) {
         this.createdTopics = createdTopics;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public Set<User> getFollowed() {
+    public List<User> getFollowed() {
         return followed;
     }
 
-    public void setFollowed(Set<User> followed) {
+    public void setFollowed(List<User> followed) {
         this.followed = followed;
     }
 
-    public Set<User> getFollowers() {
+    public List<User> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Set<User> followers) {
+    public void setFollowers(List<User> followers) {
         this.followers = followers;
     }
 
-    public Set<PostVote> getPostVotes() {
+    public List<PostVote> getPostVotes() {
         return postVotes;
     }
 
-    public void setPostVotes(Set<PostVote> postVotes) {
+    public void setPostVotes(List<PostVote> postVotes) {
         this.postVotes = postVotes;
     }
 
-    public Set<CommentVote> getCommentVotes() {
+    public List<CommentVote> getCommentVotes() {
         return commentVotes;
     }
 
-    public void setCommentVotes(Set<CommentVote> commentVotes) {
+    public void setCommentVotes(List<CommentVote> commentVotes) {
         this.commentVotes = commentVotes;
     }
 

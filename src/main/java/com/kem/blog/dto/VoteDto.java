@@ -8,21 +8,15 @@ import java.util.UUID;
 public class VoteDto {
 
     @NotNull
-    private final UUID voterId;
-    @NotNull
     private final Long targetId;
     @NotNull
-    private final VoteType type;        //TODO string?
+    private final VoteType type;
 
-    public VoteDto(UUID userId, Long targetId, VoteType type) {
-        this.voterId = userId;
+    public VoteDto(Long targetId, VoteType type) {
         this.targetId = targetId;
         this.type = type;
     }
 
-    public UUID getVoterId() {
-        return voterId;
-    }
 
     public Long getTargetId() {
         return targetId;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Title</title>
+</head>
+<body>
+<section th:text="${post.author}">Author</section>
+<section th:text="${post.postDate}">Creation date</section>
+<section th:text="${post.topic}">Topic</section>
+<section th:text="${[post.text}">Text</section>
+<!--    invisible frame; used to stay on same page after submitting vote-->
+<iframe name="hiddenFrame" style="display: none;"></iframe>
+<section>
+    <!--    TODO vote url and params-->
+    <span th:text="post.upvotes">
+        <button formaction="web/vote/upvote" formtarget="hiddenFrame"></button>Upvotes
+    </span>
+    <span th:text="post.downvotes">
+        <button formaction="web/vote/downvote" formtarget="hiddenFrame"></button>Downvotes
+    </span>
+</section>
+<section th:each="comment: ${comments}">
+    <section th:text="${comment.author}">Author</section>
+    <section th:text="${comment.text}">Comment text</section>
+    <section th:text="${comment.postDate}">Post date</section>
+    <section>
+        <span th:text="comment.upvotes">
+            <button formaction="web/vote/upvote" formtarget="hiddenFrame"></button>Upvotes
+        </span>
+            <span th:text="comment.downvotes">
+            <button formaction="web/vote/downvote" formtarget="hiddenFrame"></button>Downvotes
+        </span>
+    </section>
+</section>
+</body>
+</html>
