@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title th:text="${pageTitle}">Topics</title>
 </head>
+
 <body>
-<!--TODO topic selection here-->
+
+<a href="/home/posts/new">Browse Posts</a>
 <h1 th:text="${header}">Topics</h1>
-<article th:each="topic : ${topics}">
-    <a th:href="@{ /web/topic ( id=${topic.id} ) }"><h2 th:text="${topic.title}">title</h2></a>
+
+<a href="/home/posts/new">NEW</a>
+<a href="/home/posts/popular">POPULAR</a>
+<a href="/home/posts/alphabet">ALL</a>
+
+<article th:each="topic: ${topics}">
+    <a th:href="@{ /web/topic ( id=${topic.id} ) }">
+        <h2 th:text="${topic.title}">Topic title</h2>
+    </a>
 </article>
+
 </body>
 </html>

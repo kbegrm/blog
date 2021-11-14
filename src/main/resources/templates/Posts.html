@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title th:text="${pageTitle}">Posts</title>
 </head>
+
 <body>
-<!--TODO posts selection here-->
-    <h1 th:text="${header}">Posts</h1>
-    <section th:text="${description}">Selected posts</section>
-    <a th:href="@{ /web/test ( id=${creator.id} ) }"><section th:text="${creator.username}">Creator</section></a>
-    <section th:text="${creationDate}">Creation date</section>
-    <article th:each="post : ${posts}">
-        <a th:href="@{ /web/post ( id=${post.id} ) }"><h2 th:text="${post.title}">Post title</h2></a>
-    </article>
+
+<aside th:replace="fragments/sidebar :: sidebar">Login / logout</aside>
+
+<a href="/home/topics/new">Browse Topics</a>
+<h1 th:text="${header}">Posts</h1>
+
+<a href="/home/posts/new">NEW</a>
+<a href="/home/posts/popular">POPULAR</a>
+<a href="/home/posts/subscriptions">SUBSCRIPTIONS</a>
+<a href="/home/posts/followed">FOLLOWED</a>
+
+<article th:each="post: ${posts}">
+    <section th:text="${post.postDate}">Date</section>
+    <a th:href="@{ /web/post ( id=${post.id} ) }">
+        <h2 th:text="${post.title}">Post title</h2>
+    </a>
+</article>
+
 </body>
 </html>

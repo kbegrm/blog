@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface CommentVoteRepo extends JpaRepository<CommentVote , Long> {
 
-    Optional<CommentVote> findByUserAndComment(User voter, Comment comment);   // TODO test
+    Optional<CommentVote> findByVoterAndComment(User voter, Comment comment);   // TODO test
 }

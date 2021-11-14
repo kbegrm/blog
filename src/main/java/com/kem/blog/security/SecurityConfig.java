@@ -50,6 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .loginPage("/web/credentials/login").permitAll()
                 .defaultSuccessUrl("/web/home/posts/subscriptions")
+                .failureUrl("/login-error")
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("logout")
                 .and().csrf().disable();
     }
 

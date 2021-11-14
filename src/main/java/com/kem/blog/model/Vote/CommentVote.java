@@ -16,7 +16,7 @@ public class CommentVote {
     @ManyToOne
     private Comment comment;
     @Enumerated(EnumType.STRING)
-    VoteType vote;
+    private VoteType vote;
 
 
     public CommentVote() {

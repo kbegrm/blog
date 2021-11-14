@@ -36,7 +36,7 @@ public class VoteService {
     public void voteComment(VoteDto dto, User voter) {
         VoteType type = dto.getType();
         Comment comment = commentRepo.getById(dto.getTargetId());
-        Optional<CommentVote> existingVote = commentVoteRepo.findByUserAndComment(voter, comment);
+        Optional<CommentVote> existingVote = commentVoteRepo.findByVoterAndComment(voter, comment);
 
         if (existingVote.isPresent()){
             CommentVote vote = existingVote.get();
@@ -52,7 +52,7 @@ public class VoteService {
     public void votePost(VoteDto dto, User voter) {
         VoteType type = dto.getType();
         Post post = postRepo.getById(dto.getTargetId());
-        Optional<PostVote> existingVote = postVoteRepo.findByUserAndPost(voter, post);
+        Optional<PostVote> existingVote = postVoteRepo.findByVoterAndPost(voter, post);
 
         if (existingVote.isPresent()){
             PostVote vote = existingVote.get();

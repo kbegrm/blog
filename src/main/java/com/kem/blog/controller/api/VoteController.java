@@ -1,8 +1,10 @@
-package com.kem.blog.controller;
+package com.kem.blog.controller.api;
 
 import com.kem.blog.dto.VoteDto;
+import com.kem.blog.security.SecurityUserDetails;
 import com.kem.blog.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,16 +25,17 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-    // TODO prevent multiple votes
 
 
     @PostMapping("/comment")
-    public void voteComment(@Valid @RequestBody VoteDto dto) {
-        voteService.voteComment(dto);
+    public void voteComment(@Valid @RequestBody VoteDto dto,
+                            @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        voteService.voteComment(dto, userDetails.getUser());
     }
 
     @PostMapping("/post")
-    public void votePost(@Valid @RequestBody VoteDto dto) {
-        voteService.votePost(dto);
+    public void votePost(@Valid @RequestBody VoteDto dto,
+                         @AuthenticationPrincipal SecurityUserDetails userDetails) {
+        voteService.votePost(dto, userDetails.getUser());
     }
 }

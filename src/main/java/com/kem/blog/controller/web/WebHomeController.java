@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/web/home")
 public class WebHomeController {
 
     private TopicService topicService;
@@ -21,7 +21,7 @@ public class WebHomeController {
         this.postService = postService;
     }
 
-    @GetMapping("/topics/natOrder")
+    @GetMapping("/topics/alphabet")
     public String getInOrderTopics(Model model) {
         model.addAttribute("topics", topicService.getInOrder());
         model.addAttribute("pageTitle", "Topics");
@@ -45,7 +45,7 @@ public class WebHomeController {
         return "Topics";
     }
 
-    @GetMapping("/posts/new")
+    @GetMapping({"/posts/new", ""})
     public String getNewPosts(Model model) {
         model.addAttribute("posts", postService.getNew());
         return "Posts";

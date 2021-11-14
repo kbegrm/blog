@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("web//user")
 @Validated
 public class WebUserController {
 

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+
+<aside th:fragment="sidebar">
+        <div sec:authorize="isAuthenticated()">
+                <a href="/logout" >Logout</a>
+        </div>
+        <a href="/login" sec:authorize="isAnonymous()">Login</a>
+</aside>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.kem.blog.controller;
+package com.kem.blog.controller.api;
 
 import com.kem.blog.dto.user.UserDto;
 import com.kem.blog.dto.user.UserPreviewDto;
